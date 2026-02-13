@@ -25,9 +25,11 @@ def top_3_revenue(summary_dff):
     result_df = (
         summary_dff.withColumn("rank",rank().over(window_spec))
         .where(col('rank') <= 3)
+        .drop("rank")
         
     )
     return result_df
+    
 
 
 def PrintName():
@@ -36,4 +38,9 @@ def PrintName():
 
 if __name__ == "__main__":
     PrintName()
+    summary_df = read_booking_summary(spark)
+    top_3_revenue(summary_df).display()
+    
+    
+    
 
